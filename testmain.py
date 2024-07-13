@@ -862,47 +862,47 @@ print('Vset, Wset, Tset, Jset, and Dset have been defined.\n')
 # This cannot be stored in advance, since currently focusing on modifying the parameters to make the model feasible, and each time the parameters change might lead to a new matrix.
 # So it's better to calculate these files every time to avoid issues.
 
-# cal_taskF(j, t), taskF_results
-taskF_results = {}
-for j in tqdm(Jset, desc='taskF_results'):
-    for t in Tset:
-        taskF_results[(j, t)] = cal_taskF(j, t)
+# # cal_taskF(j, t), taskF_results
+# taskF_results = {}
+# for j in tqdm(Jset, desc='taskF_results'):
+#     for t in Tset:
+#         taskF_results[(j, t)] = cal_taskF(j, t)
 
-# cal_mu(j), mu_results
-mu_results = {}
-for j in tqdm(Jset, desc='mu_results'):
-    mu_results[j] = cal_mu(j)
+# # cal_mu(j), mu_results
+# mu_results = {}
+# for j in tqdm(Jset, desc='mu_results'):
+#     mu_results[j] = cal_mu(j)
 
-# cal_xi(j, j_prime), xi_results
-xi_results = {}
-for j in tqdm(Jset, desc='xi_results'):
-    for j_prime in Jset:
-        xi_results[(j, j_prime)] = cal_xi(j, j_prime)
+# # cal_xi(j, j_prime), xi_results
+# xi_results = {}
+# for j in tqdm(Jset, desc='xi_results'):
+#     for j_prime in Jset:
+#         xi_results[(j, j_prime)] = cal_xi(j, j_prime)
 
-# cal_phi(j, t) phi_results
-phi_results = {}
-for j in tqdm(Jset, desc='phi_results'):
-    for t in Tset:
-        phi_results[(j, t)] = cal_phi(j, t)
+# # cal_phi(j, t) phi_results
+# phi_results = {}
+# for j in tqdm(Jset, desc='phi_results'):
+#     for t in Tset:
+#         phi_results[(j, t)] = cal_phi(j, t)
 
-# cal_E(w, t), E_results
-E_results = {}
-for w in tqdm(Wset, desc='E_results'):
-    for t in Tset:
-        # print(w,t)
-        E_results[(w, t)] = cal_E(w, t)
+# # cal_E(w, t), E_results
+# E_results = {}
+# for w in tqdm(Wset, desc='E_results'):
+#     for t in Tset:
+#         # print(w,t)
+#         E_results[(w, t)] = cal_E(w, t)
 
-# Save
-with open('pkl_files/taskF_results.pkl', 'wb') as f:
-    pickle.dump(taskF_results, f)
-with open('pkl_files/mu_results.pkl', 'wb') as f:
-    pickle.dump(mu_results, f)
-with open('pkl_files/xi_jj_results.pkl', 'wb') as f:
-    pickle.dump(xi_results, f)
-with open('pkl_files/phi_results.pkl', 'wb') as f:
-    pickle.dump(phi_results, f)
-with open('pkl_files/E_results.pkl', 'wb') as f:
-    pickle.dump(E_results, f)
+# # Save
+# with open('pkl_files/taskF_results.pkl', 'wb') as f:
+#     pickle.dump(taskF_results, f)
+# with open('pkl_files/mu_results.pkl', 'wb') as f:
+#     pickle.dump(mu_results, f)
+# with open('pkl_files/xi_jj_results.pkl', 'wb') as f:
+#     pickle.dump(xi_results, f)
+# with open('pkl_files/phi_results.pkl', 'wb') as f:
+#     pickle.dump(phi_results, f)
+# with open('pkl_files/E_results.pkl', 'wb') as f:
+#     pickle.dump(E_results, f)
 
 # read 
 with open('pkl_files/taskF_results.pkl', 'rb') as f:
@@ -1114,16 +1114,16 @@ for v in tqdm(Vset, desc='Constraint 5c'):
                             >= Q[v, t], 
                             name=f"battery_update_v{v}_t{t}")
 
-# Constraint 6a
-for v in tqdm(Vset, desc='Constraint 6a'):
-    model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= nc, name=f"min_crew_pauses_{v}")
+# # Constraint 6a
+# for v in tqdm(Vset, desc='Constraint 6a'):
+#     model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= nc, name=f"min_crew_pauses_{v}")
 
-# Constraint 6b
-for v in Vset:
-    for t in Tset:
-        if t < (Tset[-1] - (Tc // period_length + 1)):
-            for t_prime in range(1, Tc // period_length + 1):
-                model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 1, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
+# # Constraint 6b
+# for v in Vset:
+#     for t in Tset:
+#         if t < (Tset[-1] - (Tc // period_length + 1)):
+#             for t_prime in range(1, Tc // period_length + 1):
+#                 model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 1, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
 
 print('All constraintrs are ready.\n')
 
