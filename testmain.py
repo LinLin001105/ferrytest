@@ -29,7 +29,7 @@ print('All .csv files have been loaded successfully.\n')
 # Simulation time parameters
 initial_time = time(5,0)
 period_length = 5 # mins
-total_operation_hours = 10 # hours
+total_operation_hours = 24 # hours
 
 # nc, Minimum num of crew break
 nc = 1
@@ -38,7 +38,7 @@ nc = 1
 Dc = 10 # mins
 
 # Tc, Maximum seperation time for crew breakings
-Tc = 10*60 # mins
+Tc = 24*60 # mins
 
 # rv+, charging rate
 rv_plus = 2100*period_length/60/1100 # kW*h/kwh --> %  
@@ -862,47 +862,47 @@ print('Vset, Wset, Tset, Jset, and Dset have been defined.\n')
 # This cannot be stored in advance, since currently focusing on modifying the parameters to make the model feasible, and each time the parameters change might lead to a new matrix.
 # So it's better to calculate these files every time to avoid issues.
 
-# # cal_taskF(j, t), taskF_results
-# taskF_results = {}
-# for j in tqdm(Jset, desc='taskF_results'):
-#     for t in Tset:
-#         taskF_results[(j, t)] = cal_taskF(j, t)
+# cal_taskF(j, t), taskF_results
+taskF_results = {}
+for j in tqdm(Jset, desc='taskF_results'):
+    for t in Tset:
+        taskF_results[(j, t)] = cal_taskF(j, t)
 
-# # cal_mu(j), mu_results
-# mu_results = {}
-# for j in tqdm(Jset, desc='mu_results'):
-#     mu_results[j] = cal_mu(j)
+# cal_mu(j), mu_results
+mu_results = {}
+for j in tqdm(Jset, desc='mu_results'):
+    mu_results[j] = cal_mu(j)
 
-# # cal_xi(j, j_prime), xi_results
-# xi_results = {}
-# for j in tqdm(Jset, desc='xi_results'):
-#     for j_prime in Jset:
-#         xi_results[(j, j_prime)] = cal_xi(j, j_prime)
+# cal_xi(j, j_prime), xi_results
+xi_results = {}
+for j in tqdm(Jset, desc='xi_results'):
+    for j_prime in Jset:
+        xi_results[(j, j_prime)] = cal_xi(j, j_prime)
 
-# # cal_phi(j, t) phi_results
-# phi_results = {}
-# for j in tqdm(Jset, desc='phi_results'):
-#     for t in Tset:
-#         phi_results[(j, t)] = cal_phi(j, t)
+# cal_phi(j, t) phi_results
+phi_results = {}
+for j in tqdm(Jset, desc='phi_results'):
+    for t in Tset:
+        phi_results[(j, t)] = cal_phi(j, t)
 
-# # cal_E(w, t), E_results
-# E_results = {}
-# for w in tqdm(Wset, desc='E_results'):
-#     for t in Tset:
-#         # print(w,t)
-#         E_results[(w, t)] = cal_E(w, t)
+# cal_E(w, t), E_results
+E_results = {}
+for w in tqdm(Wset, desc='E_results'):
+    for t in Tset:
+        # print(w,t)
+        E_results[(w, t)] = cal_E(w, t)
 
-# # Save
-# with open('pkl_files/taskF_results.pkl', 'wb') as f:
-#     pickle.dump(taskF_results, f)
-# with open('pkl_files/mu_results.pkl', 'wb') as f:
-#     pickle.dump(mu_results, f)
-# with open('pkl_files/xi_jj_results.pkl', 'wb') as f:
-#     pickle.dump(xi_results, f)
-# with open('pkl_files/phi_results.pkl', 'wb') as f:
-#     pickle.dump(phi_results, f)
-# with open('pkl_files/E_results.pkl', 'wb') as f:
-#     pickle.dump(E_results, f)
+# Save
+with open('pkl_files/taskF_results.pkl', 'wb') as f:
+    pickle.dump(taskF_results, f)
+with open('pkl_files/mu_results.pkl', 'wb') as f:
+    pickle.dump(mu_results, f)
+with open('pkl_files/xi_jj_results.pkl', 'wb') as f:
+    pickle.dump(xi_results, f)
+with open('pkl_files/phi_results.pkl', 'wb') as f:
+    pickle.dump(phi_results, f)
+with open('pkl_files/E_results.pkl', 'wb') as f:
+    pickle.dump(E_results, f)
 
 # read 
 with open('pkl_files/taskF_results.pkl', 'rb') as f:
