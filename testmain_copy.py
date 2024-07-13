@@ -1116,14 +1116,14 @@ for v in tqdm(Vset, desc='Constraint 5c'):
 
 # Constraint 6a
 for v in tqdm(Vset, desc='Constraint 6a'):
-    model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= nc, name=f"min_crew_pauses_{v}")
+    model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= 10, name=f"min_crew_pauses_{v}")
 
 # Constraint 6b
 for v in Vset:
     for t in Tset:
         if t < (Tset[-1] - (Tc // period_length + 1)):
             for t_prime in range(1, Tc // period_length + 1):
-                model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 1, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
+                model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 10, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
 
 print('All constraintrs are ready.\n')
 
