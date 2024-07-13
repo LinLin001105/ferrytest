@@ -345,10 +345,10 @@ def cal_q(v, j, t):
             else:
                 rj = line_data['rj'].iloc()[0]
         elif len(stops) == 2: # with intermediate stops
-            a1 = int(line_data['Time_underway_to_I'].iloc[0] // period_length + 1)
-            dw1 = int(line_data['dw_I'].iloc[0] // period_length + 1)
-            a2 = int(line_data['Time_underway_to_T'].iloc[0] // period_length + 1)
-            dw2 = int(line_data['dw_T'].iloc[0] // period_length + 1)
+            a1 = int(line_data['Time_underway_to_I'].iloc[0])// period_length + 1
+            dw1 = int(line_data['dw_I'].iloc[0]) // period_length + 1
+            a2 = int(line_data['Time_underway_to_T'].iloc[0]) // period_length + 1
+            dw2 = int(line_data['dw_T'].iloc[0]) // period_length + 1
 
             if t in list(range(a1,(a1+dw1)+1)) + list(range(a2,(a2+dw2)+1)):
                 return 0
@@ -536,8 +536,8 @@ def cal_delta(j, w):
             for station in stations: # only one element here
                 wharves = cal_C_lS(station)
                 if w in wharves:
-                    a = int(line_data['Time_underway_to_I'].iloc[0] // period_length + 1)
-                    dw = int(line_data['dw_I'].iloc[0] // period_length + 1)
+                    a = int(line_data['Time_underway_to_I'].iloc[0]) // period_length + 1
+                    dw = int(line_data['dw_I'].iloc[0]) // period_length + 1
                     delta_j_w = [(w, time) for time in range(a - safety_buffer, (a + dw - 1 + safety_buffer) + 1)]
                     return delta_j_w
 
