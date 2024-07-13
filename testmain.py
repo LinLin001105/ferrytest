@@ -885,12 +885,12 @@ for j in tqdm(Jset, desc='phi_results'):
     for t in Tset:
         phi_results[(j, t)] = cal_phi(j, t)
 
-# cal_E(w, t), E_results
-E_results = {}
-for w in tqdm(Wset, desc='E_results'):
-    for t in Tset:
-        # print(w,t)
-        E_results[(w, t)] = cal_E(w, t)
+# # cal_E(w, t), E_results
+# E_results = {}
+# for w in tqdm(Wset, desc='E_results'):
+#     for t in Tset:
+#         # print(w,t)
+#         E_results[(w, t)] = cal_E(w, t)
 
 # Save
 with open('pkl_files/taskF_results.pkl', 'wb') as f:
@@ -901,8 +901,8 @@ with open('pkl_files/xi_jj_results.pkl', 'wb') as f:
     pickle.dump(xi_results, f)
 with open('pkl_files/phi_results.pkl', 'wb') as f:
     pickle.dump(phi_results, f)
-with open('pkl_files/E_results.pkl', 'wb') as f:
-    pickle.dump(E_results, f)
+# with open('pkl_files/E_results.pkl', 'wb') as f:
+#     pickle.dump(E_results, f)
 
 # read 
 with open('pkl_files/taskF_results.pkl', 'rb') as f:
