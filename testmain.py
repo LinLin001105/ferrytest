@@ -41,7 +41,7 @@ Dc = 10 # mins
 Tc = 10*60 # mins
 
 # rv+, charging rate
-rv_plus = 2100*period_length/60/1100 # kW*h/kwh --> %  new modification (11July)
+rv_plus = 2100*period_length/60/1100 # kW*h/kwh --> %  
 
 # rv, discharging rate for revalancing, based on max speed of the vessel
 
@@ -1114,16 +1114,16 @@ for v in tqdm(Vset, desc='Constraint 5c'):
                             >= Q[v, t], 
                             name=f"battery_update_v{v}_t{t}")
 
-# # Constraint 6a
-# for v in tqdm(Vset, desc='Constraint 6a'):
-#     model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= nc, name=f"min_crew_pauses_{v}")
+# Constraint 6a
+for v in tqdm(Vset, desc='Constraint 6a'):
+    model.addConstr(gp.quicksum(y[v, j, t] for j in Bc for t in Tset) >= nc, name=f"min_crew_pauses_{v}")
 
-# # Constraint 6b
-# for v in Vset:
-#     for t in Tset:
-#         if t < (Tset[-1] - (Tc // period_length + 1)):
-#             for t_prime in range(1, Tc // period_length + 1):
-#                 model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 1, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
+# Constraint 6b
+for v in Vset:
+    for t in Tset:
+        if t < (Tset[-1] - (Tc // period_length + 1)):
+            for t_prime in range(1, Tc // period_length + 1):
+                model.addConstr(gp.quicksum(y[v, j, t + t_prime] for j in Bc) >= 1, name=f"max_distance_pauses_v{v}_t{t}_t{t}_t_prime{t_prime}") #12JUl
 
 print('All constraintrs are ready.\n')
 

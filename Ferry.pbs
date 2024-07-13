@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PBS -P RDS-FEI-FTP-RW             
-#PBS -l select=1:ncpus=16:mem=64GB
+#PBS -l select=1:ncpus=24:mem=64GB
 #PBS -l walltime=02:00:00
 #PBS -N ferrytest
 #PBS -m abe
